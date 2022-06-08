@@ -31,8 +31,7 @@ class UserFixtures extends Fixture
                             $plainTextPassword
                         );
                     $user->setPassword($hashedPassword);
-                    $user->setVerify($data[3]);
-                    $user->setRoles([$data[4]]);
+                    $user->setRoles([$data[3]]);
                     $manager->persist($user);
                 }
                 $manager->flush();
