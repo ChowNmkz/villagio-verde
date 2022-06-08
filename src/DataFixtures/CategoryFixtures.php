@@ -17,60 +17,60 @@ class CategoryFixtures extends Fixture
 
     $parentCategories = [ 
 
-      1 => [ 'nom' => "Guitare et basses",
+      1 => [ 'nom' => "Guitares et Basses",
              'image' => "catP_GuitareBasse.jpg",
              'category' => [
 
-                1 => [ 'nom' =>  "Guitare classique",
+                1 => [ 'nom' =>  "Guitares classiques",
                        'image' => "cat_guitare_classic.jpg",
                 ],
-                2 => [ 'nom' => "Guitare electrique",
+                2 => [ 'nom' => "Guitares électriques",
                        'image' => "cat_guitare_electrique.jpg",
                 ],
 
              ]
       ],
-      2 => [ 'nom' => "Batteries et percu",
+      2 => [ 'nom' => "Batterie et Percussions",
              'image' => "catP_BatteriePercu.jpg",
              'category' => [
               
-                1 => [ 'nom' => "batterie accoustique",
+                1 => [ 'nom' => "Batteries acoustiques",
                        'image' => "cat_batterie_accoustique.jpg",
                 ],
-                2 => [ 'nom' => "batterie electrique",
+                2 => [ 'nom' => "Batteries électroniques",
                        'image' => "cat_batterie_electronique.jpg",
                 ],
              ]
       ],
-      3 => [ 'nom' => "Clavier et piano",
+      3 => [ 'nom' => "Claviers et Pianos",
              'image' => "catP_ClavierPiano.jpg",
              'category' => [
 
-                1 => [ 'nom' => "clavier accoustique",
+                1 => [ 'nom' => "Claviers acoustiques",
                        'image' => "cat_clavier_arrangeur.jpg",
                 ],
 
-                2 => [ 'nom' => "clavier numerique",
+                2 => [ 'nom' => "Claviers numériques",
                        'image' => "cat_clavier_numerique.jpg",
                 ],
              ]
       ],
 
-      4 => [ 'nom' => "Instruments a vent",
+      4 => [ 'nom' => "Instruments à vent",
              'image' =>  "catP_InstrumentsVent.jpg",
              'category' => [
 
-                1 => [ 'nom' => "flutes",
+                1 => [ 'nom' => "Flûtes",
                        'image' => "cat_flute.jpg",
                 ],
              ]
       ],
 
-      5 => [ 'nom' => "Instruments a cordes",
+      5 => [ 'nom' => "Instruments à cordes",
              'image' => "catP_AutresInstruCordes.jpg",
              'category' => [
 
-                1 => [ 'nom' => "violons",
+                1 => [ 'nom' => "Violons",
                        'image' => "cat_violon.jpg",
                 ]
              ]

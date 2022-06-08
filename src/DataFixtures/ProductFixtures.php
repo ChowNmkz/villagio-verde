@@ -49,7 +49,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                     switch ($productName) {
                         case "Fender - Windy":
                             //guitare electrique
-                            $cat = $this->_categoryRepository->findOneByName("Guitare electrique");
+                            $cat = $this->_categoryRepository->findOneByName("Guitares électriques");
                             $product->setCategory($cat);
                             
                             $image = $this->_imageRepository->findByTitleImage('gibson');
@@ -60,7 +60,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
                         case "Epiphone - Misti":
                             //guitare electrique
-                            $cat = $this->_categoryRepository->findOneByName("Guitare electrique");
+                            $cat = $this->_categoryRepository->findOneByName("Guitares électriques");
                             $product->setCategory($cat);
 
                             $image = $this->_imageRepository->findByTitleImage('lespaul01');
@@ -71,7 +71,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
                         case "Harley - Magdalene":
                             //guitare electrique
-                            $cat = $this->_categoryRepository->findOneByName("Guitare electrique");
+                            $cat = $this->_categoryRepository->findOneByName("Guitares électriques");
                             $product->setCategory($cat);
 
                             $image = $this->_imageRepository->findByTitleImage('strat');
@@ -82,7 +82,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
                         case "Akai - Kinna":
                             // clavier numerique
-                            $cat = $this->_categoryRepository->findOneByName("clavier numerique");
+                            $cat = $this->_categoryRepository->findOneByName("Claviers numériques");
                             $product->setCategory($cat);
 
                             $image = $this->_imageRepository->findByTitleImage('clavier2-');
@@ -93,7 +93,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
                         case "Roland - Frederique":
                             // clavier numerique
-                            $cat = $this->_categoryRepository->findOneByName("clavier numerique");
+                            $cat = $this->_categoryRepository->findOneByName("Claviers numériques");
                             $product->setCategory($cat);
 
                             $image = $this->_imageRepository->findByTitleImage('kai');
@@ -104,7 +104,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
                         case "Roland - Shayne":
                             // clavier numerique
-                            $cat = $this->_categoryRepository->findOneByName("clavier numerique");
+                            $cat = $this->_categoryRepository->findOneByName("Claviers numériques");
                             $product->setCategory($cat);
 
                             $image = $this->_imageRepository->findByTitleImage('clavier-');
@@ -114,7 +114,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                             break;
 
                         case "Millenium - Viva":
-                            $cat = $this->_categoryRepository->findOneByName("batterie accoustique");
+                            $cat = $this->_categoryRepository->findOneByName("Batteries acoustiques");
                             $product->setCategory($cat);
 
                             $image = $this->_imageRepository->findByTitleImage('pearl');
@@ -125,7 +125,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
                         case "Roland - Gussy":
                             //guitare electrique
-                            $cat = $this->_categoryRepository->findOneByName("Guitare electrique");
+                            $cat = $this->_categoryRepository->findOneByName("Guitares électriques");
                             $product->setCategory($cat);
                             
                             $image = $this->_imageRepository->findByTitleImage('telecaster');
@@ -145,7 +145,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                             break;
 
                         case "Küng - Gussy":
-                            $cat = $this->_categoryRepository->findOneByName("flutes");
+                            $cat = $this->_categoryRepository->findOneByName("Flûtes");
                             $product->setCategory($cat);
 
                             $image = $this->_imageRepository->findByTitleImage('flute');
@@ -158,13 +158,13 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                             $cat = $this->_categoryRepository->findOneByName("violons");
                             $product->setCategory($cat);
 
-                            $image = $this->_imageRepository->findByTitleImage('violon');
+                            $image = $this->_imageRepository->findByTitleImage('Violons');
                             foreach ($image as $addImg) {
                                 $product->addImage($addImg);
                             }
                             break;
                         case "Akai - Kai":
-                            $cat = $this->_categoryRepository->findOneByName("violons");
+                            $cat = $this->_categoryRepository->findOneByName("Violons");
                             $product->setCategory($cat);
 
                             $image = $this->_imageRepository->findByTitleImage('mille');
