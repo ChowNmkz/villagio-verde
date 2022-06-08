@@ -30,9 +30,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 50)]
     private $username;
 
-    #[ORM\Column(type: 'boolean')]
-    private $verify;
-
     #[ORM\Column(type: 'datetime_immutable')]
     private $createdAt;
 
@@ -135,18 +132,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getVerify(): ?bool
-    {
-        return $this->verify;
-    }
-
-    public function setVerify(bool $verify): self
-    {
-        $this->verify = $verify;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -159,7 +144,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
