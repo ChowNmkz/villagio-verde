@@ -1,0 +1,44 @@
+// customize some Bootstrap variables
+$primary: darken(#428bca, 20%);
+$secondary
+
+/* NAVBAR */
+body{
+  background-color:$primary;
+}
+.form-inputs{
+  position:relative;
+}
+.form-inputs .form-control{
+  height:45px;
+}
+
+.form-inputs .form-control:focus{
+  border:1px solid #000;
+  box-shadow:none;
+}
+
+.form-inputs i{
+  position:absolute;
+  right:10px;
+  top:15px;
+}
+
+.qty{
+  font-size:12px;
+}
+
+.shop-bag{
+  align-items:center;
+  background-color:#f0f0f0;
+  border-radius:50%;
+  color:#fff;
+  display:flex;
+  font-size:25px;
+  height:50px;
+  justify-content:center;
+  width:50px;
+}
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";

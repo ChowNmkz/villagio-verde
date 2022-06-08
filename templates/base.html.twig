@@ -14,6 +14,11 @@
         {% endblock %}
     </head>
     <body>
+        <header>
+            {% block navbar %}
+                {% include './block/navbar.html.twig' %}
+            {% endblock %}
+        </header>
         {% block body %}{% endblock %}
     </body>
 </html>
