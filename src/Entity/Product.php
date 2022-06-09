@@ -23,6 +23,7 @@ class Product
 
     #[ORM\Column(type: 'string', length: 255)]
     private $name; 
+
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private $buyPrice;
 
@@ -43,6 +44,7 @@ class Product
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private $sellPrice;
+
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class)]
     private $images;
 
@@ -53,6 +55,7 @@ class Product
     #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private $supplier;
+
     public function getId(): ?int
     {
         return $this->id;
