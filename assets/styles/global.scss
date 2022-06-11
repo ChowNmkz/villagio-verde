@@ -1,0 +1,11 @@
+// customize some Bootstrap variables
+// color palette for the graphical theme https://colorhunt.co/palette/222831393e4600adb5eeeeee //
+$uno: #222831;
+$due: #393E46;
+$tre: #00ADB5;
+$quattro: #EEEEEE;
+
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+

@@ -1,3 +1,39 @@
-body {
-    background-color: lightgray;
+/* NAVBAR */
+body{
+    background-color:purple;
 }
+.form-inputs{
+    position:relative;
+}
+.form-inputs .form-control{
+    height:45px;
+}
+
+.form-inputs .form-control:focus{
+    border:1px solid #000;
+    box-shadow:none;
+}
+
+.form-inputs i{
+    position:absolute;
+    right:10px;
+    top:15px;
+}
+
+.qty{
+    font-size:12px;
+}
+
+.shop-bag{
+    align-items:center;
+    background-color:#000;
+    border-radius:50%;
+    color:#fff;
+    display:flex;
+    font-size:25px;
+    height:50px;
+    justify-content:center;
+    width:50px;
+}
+
+
