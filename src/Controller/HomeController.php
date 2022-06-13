@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,26 +14,26 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(CategoryRepository $categoryRepository): Response
     {
-        $categorie = $categoryRepository->findBy(['catParent' => null ] );
+        $category = $categoryRepository->findBy(['catParent' => null ] );
         return $this->render('home/index.html.twig', [
-            'categorie' => $categorie,
+            'category' => $category,
         ]);
     }
 
-    #[Route('/categorie/{id}', name: 'app_home_category')]
-    public function categorieDetails(Category $id): Response
+    #[Route('/category/{id}', name: 'app_home_category')]
+    public function categoryDetail(Category $category): Response
     {
-        return $this->render('home/subcat.html.twig', [
-            'subcat' => $id,
+        return $this->render('home/index.html.twig', [
+            'category' => $category,
         ]);
     }
 
-    #[Route('/categorie/produit/{id}', name: 'app_home_product')]
-    public function productFromCategory(Category $id, ProductRepository $productRepository): Response
+   #[Route('/productbycat/{id}', name: 'app_home_productByCategory')]
+    public function productList(Category $category, ProductRepository $productRepository): Response
     {
-        $product = $productRepository->findBy(['category' => $id ]);
-        return $this->render('home/productCat.html.twig', [
-            'product' => $product,
+        $product = $productRepository->findBy(['category' => $category]);
+        return $this->render('home/product_list.html.twig', [
+            'products' => $product,
         ]);
     }
 }

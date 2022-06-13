@@ -1,9 +1,0 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Page d'accueil{% endblock %}
-
-{% block body %}
-    {% for catparent in subcat.categories %}
-        <p><a href="{{ path('app_home_product', {id: catparent.id}) }}">{{catparent.name}}</a></p>
-    {% endfor %}
-{% endblock %}

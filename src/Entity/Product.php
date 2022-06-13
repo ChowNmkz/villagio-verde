@@ -145,6 +145,11 @@ class Product
         return $this;
     }
 
+    public function getSellPrice(): ?string
+    {
+        return $this->sellPrice;
+    }
+
     public function setSellPrice(string $sellPrice): self
     {
         $this->sellPrice = $sellPrice;
