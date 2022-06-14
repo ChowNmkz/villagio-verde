@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CommandRepository::class)]
 class Command
 {
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -27,28 +29,26 @@ class Command
     #[ORM\Column(type: 'string', length: 1, nullable: true)]
     private $paymentType;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $deliveryAddress;
 
-    #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private $deliveryZipcode;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $deliveryCity;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $billAddress;
 
-    #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private $billZpicode;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $billCity;
 
     #[ORM\Column(type: 'string', length: 50)]
     private $status = self::STATUS_CART;
-
-    const STATUS_CART = 'cart';
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $createdAt;
@@ -64,6 +64,13 @@ class Command
 
     #[ORM\OneToMany(mappedBy: 'command', targetEntity: detail::class, cascade: ["persist", "remove"], orphanRemoval: true)]
     private $detail;
+
+    /**
+     * An order that is in progress, not placed yet.
+     *
+     * @var string
+     */
+    public const STATUS_CART = 'cart';
 
     public function __construct()
     {
