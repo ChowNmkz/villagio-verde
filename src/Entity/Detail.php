@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DetailRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DetailRepository::class)]
 class Detail
@@ -20,6 +21,8 @@ class Detail
     private $discount;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(1)]
     private $quantity;
 
     #[ORM\ManyToOne(targetEntity: product::class)]

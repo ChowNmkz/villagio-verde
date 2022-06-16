@@ -62,7 +62,7 @@ class Command
     #[ORM\Column(type: 'string', length: 255)]
     private $billNumber;
 
-    #[ORM\OneToMany(mappedBy: 'command', targetEntity: detail::class, cascade: ["persist", "remove"], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'command', targetEntity: Detail::class, cascade: ["persist", "remove"], orphanRemoval: true)]
     private $detail;
 
     /**
