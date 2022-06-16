@@ -59,7 +59,7 @@ class Command
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private $customerCoeff;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $billNumber;
 
     #[ORM\OneToMany(mappedBy: 'command', targetEntity: Detail::class, cascade: ["persist", "remove"], orphanRemoval: true)]

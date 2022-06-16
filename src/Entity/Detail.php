@@ -14,7 +14,7 @@ class Detail
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private $unitPrice;
 
     #[ORM\Column(type: 'decimal', precision: 6, scale: 2)]
@@ -25,7 +25,7 @@ class Detail
     #[Assert\GreaterThanOrEqual(1)]
     private $quantity;
 
-    #[ORM\ManyToOne(targetEntity: product::class)]
+    #[ORM\ManyToOne(targetEntity: Product::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $product;
 

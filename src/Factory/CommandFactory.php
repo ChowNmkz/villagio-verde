@@ -23,6 +23,10 @@ class CommandFactory
         $order->setOrderDate(new \DateTime());
         $order->setExtraDiscount(0);
         $order->setStatus(Command::STATUS_CART);
+        $order->setCreatedAt(new \DateTimeImmutable());
+        $order->setUpdatedAt(new \DateTime());
+        $order->setCustomerCoeff(0);
+
         return $order;
     }
 
@@ -31,7 +35,7 @@ class CommandFactory
      *
      * @param Product $product
      *
-     * @return CommandItem
+     * @return CommandDetail
      */
     public function createDetail(Product $product): Detail
     {
