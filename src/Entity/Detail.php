@@ -17,7 +17,7 @@ class Detail
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private $unitPrice;
 
-    #[ORM\Column(type: 'decimal', precision: 6, scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 6, scale: 2,nullable: true)]
     private $discount;
 
     #[ORM\Column(type: 'integer')]
@@ -29,7 +29,7 @@ class Detail
     #[ORM\JoinColumn(nullable: false)]
     private $product;
 
-    #[ORM\ManyToOne(targetEntity: Command::class, inversedBy: 'detail')]
+    #[ORM\ManyToOne(targetEntity: Command::class, inversedBy: 'items')]
     #[ORM\JoinColumn(nullable: false)]
     private $command;
 

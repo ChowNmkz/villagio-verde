@@ -14,11 +14,11 @@ class CartType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('detail', CollectionType::class, [
+            ->add('items', CollectionType::class, [
                 'entry_type' => CartItemType::class
             ])
-            ->add('save', SubmitType::class)
-            ->add('clear', SubmitType::class);
+            ->add('enregistrer', SubmitType::class)
+            ->add('effacer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

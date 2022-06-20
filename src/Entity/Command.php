@@ -63,7 +63,7 @@ class Command
     private $billNumber;
 
     #[ORM\OneToMany(mappedBy: 'command', targetEntity: Detail::class, cascade: ["persist", "remove"], orphanRemoval: true)]
-    private $detail;
+    private $items;
 
     /**
      * An order that is in progress, not placed yet.
@@ -74,7 +74,7 @@ class Command
 
     public function __construct()
     {
-        $this->detail = new ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -265,15 +265,15 @@ class Command
     /**
      * @return Collection<int, detail>
      */
-    public function getDetail(): Collection
+    public function getItems(): Collection
     {
-        return $this->detail;
+        return $this->items;
     }
 
     public function addDetail(detail $detail): self
     {
-        if (!$this->detail->contains($detail)) {
-            $this->detail[] = $detail;
+        if (!$this->items->contains($detail)) {
+            $this->items[] = $detail;
             $detail->setCommand($this);
         }
 
@@ -282,7 +282,7 @@ class Command
 
     public function removeDetail(detail $detail): self
     {
-        if ($this->detail->removeElement($detail)) {
+        if ($this->items->removeElement($detail)) {
             // set the owning side to null (unless already changed)
             if ($detail->getCommand() === $this) {
                 $detail->setCommand(null);
@@ -294,7 +294,7 @@ class Command
 
     public function addDetails(Detail $detailItem): self
     {
-        foreach ($this->getDetail() as $existingItem) {
+        foreach ($this->getItems() as $existingItem) {
             // The item already exists, update the quantity
             if ($existingItem->equals($detailItem)) {
                 $existingItem->setQuantity(
@@ -317,7 +317,7 @@ class Command
      */
     public function removeDetails(): self
     {
-        foreach ($this->getDetail() as $details) {
+        foreach ($this->getItems() as $details) {
             $this->removeDetail($details);
         }
 
@@ -333,7 +333,7 @@ class Command
     {
         $total = 0;
 
-        foreach ($this->getDetail() as $detail) {
+        foreach ($this->getItems() as $detail) {
             $total += $detail->getTotal();
         }
 
