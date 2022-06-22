@@ -41,8 +41,10 @@ class CommandFactory
     {
         $item = new Detail();
         $item->setProduct($product);
+        $price = $product->getSellPrice();
+        $item->setUnitPrice($price);
         $item->setDiscount(0);
-        $item->setQuantity(1);
+        $item->setQuantity(0);
 
         return $item;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Factory\CommandFactory;
 use App\Repository\CommandRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -292,9 +293,10 @@ class Command
         return $this;
     }
 
-    public function addDetails(Detail $detailItem): self
+    public function addDetails(Detail $detailItem, CommandFactory $commandFactory): self
     {
         foreach ($this->getItems() as $existingItem) {
+
             // The item already exists, update the quantity
             if ($existingItem->equals($detailItem)) {
                 $existingItem->setQuantity(

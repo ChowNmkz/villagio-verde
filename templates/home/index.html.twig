@@ -3,13 +3,27 @@
 {% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <div class="row">
         {% if app.request.get('_route') == 'app_home' %}
             {% for cat in category %}
-                <p><a href="{{ path('app_home_category', {id: cat.id}) }}" class="btn btn-dark">{{cat.name}}</a></p>
+                <div class="card" style="width: 18rem;">
+                    <img src="/img/category/{{cat.image}}" class="card-img-top" alt="...">
+                    <div class="card-body mx-auto">
+                        <a href="{{ path('app_home_category', {id: cat.id}) }}" class="btn btn-dark">{{cat.name}}</a>
+                    </div>
+                </div>
             {% endfor %}
         {% elseif app.request.get('_route') == 'app_home_category' %}
             {% for catparent in category.categories %}
-                <p><a href="{{ path('app_home_productByCategory', {id: catparent.id}) }}" class="btn btn-dark">{{catparent.name}}</a></p>
+                <div class="card" style="width: 18rem;">
+                    <img src="/img/category/{{catparent.image}}" class="card-img-top" alt="...">
+                    <div class="card-body mx-auto">
+                        <a href="{{ path('app_home_productByCategory', {id: catparent.id}) }}" class="btn btn-dark">{{catparent.name}}</a>
+                    </div>
+                </div>
             {% endfor %}
         {% endif %}
+        </div>
+    </div>
 {% endblock %}

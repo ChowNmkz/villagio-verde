@@ -14,7 +14,8 @@ class CartItemType extends AbstractType
     {
         $builder
             ->add('quantity')
-            ->add('supprimer', SubmitType::class)
+            ->add('remove', SubmitType::class,
+            ['label' => 'Retirer du panier'])
         ;
     }
 
