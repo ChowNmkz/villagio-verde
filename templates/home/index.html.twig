@@ -4,14 +4,19 @@
 
 {% block body %}
     <div class="container">
-        <div class="row">
+        <div class="row row-category">
         {% if app.request.get('_route') == 'app_home' %}
             {% for cat in category %}
-                <div class="card" style="width: 18rem;">
+{#                <div class="card" style="width: 18rem;">
                     <img src="/img/category/{{cat.image}}" class="card-img-top" alt="...">
                     <div class="card-body mx-auto">
                         <a href="{{ path('app_home_category', {id: cat.id}) }}" class="btn btn-dark">{{cat.name}}</a>
                     </div>
+                </div>#}
+                <div class="carte col-category " id={{ cat.id }}>
+                    <img class="carte-image" src="/img/category/{{ cat.image }}" a lt="Carte de {{ cat.name }}"/>
+                    <div class="carte-opacite"></div>
+                    <span class="carte-titre">{{ cat.name }}</span>
                 </div>
             {% endfor %}
         {% elseif app.request.get('_route') == 'app_home_category' %}
