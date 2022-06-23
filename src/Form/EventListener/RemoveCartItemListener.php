@@ -6,6 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use App\Entity\Command;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Class RemoveCartItemListener
@@ -19,7 +20,6 @@ class RemoveCartItemListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [FormEvents::POST_SUBMIT => 'postSubmit'];
-        // TODO: Implement getSubscribedEvents() method.
     }
 
     /**
@@ -38,7 +38,7 @@ class RemoveCartItemListener implements EventSubscriberInterface
 
         // Removes items from the cart
         foreach ($form->get('items')->all() as $child) {
-            if ($child->get('supprimer')->isClicked()) {
+            if ($child->get('remove')->isClicked()) {
                 $cart->removeDetail($child->getData());
                 break;
             }

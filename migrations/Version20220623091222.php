@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220613122803 extends AbstractMigration
+final class Version20220623091222 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,8 +21,9 @@ final class Version20220613122803 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE category CHANGE image image VARCHAR(255) DEFAULT NULL, CHANGE description description VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE command CHANGE payment_date payment_date DATETIME DEFAULT NULL, CHANGE payment_type payment_type VARCHAR(1) DEFAULT NULL');
+        $this->addSql('ALTER TABLE command CHANGE payment_date payment_date DATETIME DEFAULT NULL, CHANGE payment_type payment_type VARCHAR(1) DEFAULT NULL, CHANGE delivery_address delivery_address VARCHAR(255) DEFAULT NULL, CHANGE delivery_zipcode delivery_zipcode VARCHAR(10) DEFAULT NULL, CHANGE delivery_city delivery_city VARCHAR(50) DEFAULT NULL, CHANGE bill_address bill_address VARCHAR(255) DEFAULT NULL, CHANGE bill_zpicode bill_zpicode VARCHAR(10) DEFAULT NULL, CHANGE bill_city bill_city VARCHAR(50) DEFAULT NULL, CHANGE bill_number bill_number VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE customer CHANGE individual_lastname individual_lastname VARCHAR(50) DEFAULT NULL, CHANGE individual_firstname individual_firstname VARCHAR(50) DEFAULT NULL, CHANGE professionnal_contact professionnal_contact VARCHAR(50) DEFAULT NULL, CHANGE professionnal_brand professionnal_brand VARCHAR(50) DEFAULT NULL, CHANGE professionnal_siren professionnal_siren VARCHAR(50) DEFAULT NULL, CHANGE updated_at updated_at DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE detail CHANGE unit_price unit_price NUMERIC(10, 2) DEFAULT NULL, CHANGE discount discount NUMERIC(6, 2) DEFAULT NULL');
         $this->addSql('ALTER TABLE product CHANGE updated_at updated_at DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE shipping CHANGE delivery_date delivery_date DATE DEFAULT NULL, CHANGE tracking_number tracking_number VARCHAR(255) DEFAULT NULL, CHANGE details details VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE user CHANGE roles roles JSON NOT NULL, CHANGE updated_at updated_at DATETIME DEFAULT NULL');
@@ -33,8 +34,9 @@ final class Version20220613122803 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE category CHANGE image image VARCHAR(255) DEFAULT \'NULL\', CHANGE description description VARCHAR(255) DEFAULT \'NULL\'');
-        $this->addSql('ALTER TABLE command CHANGE payment_date payment_date DATETIME DEFAULT \'NULL\', CHANGE payment_type payment_type VARCHAR(1) DEFAULT \'NULL\'');
+        $this->addSql('ALTER TABLE command CHANGE payment_date payment_date DATETIME DEFAULT \'NULL\', CHANGE payment_type payment_type VARCHAR(1) DEFAULT \'NULL\', CHANGE delivery_address delivery_address VARCHAR(255) DEFAULT \'NULL\', CHANGE delivery_zipcode delivery_zipcode VARCHAR(10) DEFAULT \'NULL\', CHANGE delivery_city delivery_city VARCHAR(50) DEFAULT \'NULL\', CHANGE bill_address bill_address VARCHAR(255) DEFAULT \'NULL\', CHANGE bill_zpicode bill_zpicode VARCHAR(10) DEFAULT \'NULL\', CHANGE bill_city bill_city VARCHAR(50) DEFAULT \'NULL\', CHANGE bill_number bill_number VARCHAR(255) DEFAULT \'NULL\'');
         $this->addSql('ALTER TABLE customer CHANGE individual_lastname individual_lastname VARCHAR(50) DEFAULT \'NULL\', CHANGE individual_firstname individual_firstname VARCHAR(50) DEFAULT \'NULL\', CHANGE professionnal_contact professionnal_contact VARCHAR(50) DEFAULT \'NULL\', CHANGE professionnal_brand professionnal_brand VARCHAR(50) DEFAULT \'NULL\', CHANGE professionnal_siren professionnal_siren VARCHAR(50) DEFAULT \'NULL\', CHANGE updated_at updated_at DATETIME DEFAULT \'NULL\'');
+        $this->addSql('ALTER TABLE detail CHANGE unit_price unit_price NUMERIC(10, 2) DEFAULT \'NULL\', CHANGE discount discount NUMERIC(6, 2) DEFAULT \'NULL\'');
         $this->addSql('ALTER TABLE messenger_messages CHANGE delivered_at delivered_at DATETIME DEFAULT \'NULL\'');
         $this->addSql('ALTER TABLE product CHANGE updated_at updated_at DATETIME DEFAULT \'NULL\'');
         $this->addSql('ALTER TABLE shipping CHANGE delivery_date delivery_date DATE DEFAULT \'NULL\', CHANGE tracking_number tracking_number VARCHAR(255) DEFAULT \'NULL\', CHANGE details details VARCHAR(255) DEFAULT \'NULL\'');
