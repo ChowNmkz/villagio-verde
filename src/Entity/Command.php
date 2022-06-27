@@ -2,12 +2,17 @@
 
 namespace App\Entity;
 
+use App\Factory\CommandFactory;
 use App\Repository\CommandRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommandRepository::class)]
 class Command
 {
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -25,26 +30,26 @@ class Command
     #[ORM\Column(type: 'string', length: 1, nullable: true)]
     private $paymentType;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $deliveryAddress;
 
-    #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private $deliveryZipcode;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $deliveryCity;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $billAddress;
 
-    #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private $billZpicode;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $billCity;
 
     #[ORM\Column(type: 'string', length: 50)]
-    private $status;
+    private $status = self::STATUS_CART;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $createdAt;
@@ -55,8 +60,23 @@ class Command
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private $customerCoeff;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $billNumber;
+
+    #[ORM\OneToMany(mappedBy: 'command', targetEntity: Detail::class, cascade: ["persist", "remove"], orphanRemoval: true)]
+    private $items;
+
+    /**
+     * An order that is in progress, not placed yet.
+     *
+     * @var string
+     */
+    public const STATUS_CART = 'cart';
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -241,5 +261,84 @@ class Command
         $this->billNumber = $billNumber;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, detail>
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addDetail(detail $detail): self
+    {
+        if (!$this->items->contains($detail)) {
+            $this->items[] = $detail;
+            $detail->setCommand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetail(detail $detail): self
+    {
+        if ($this->items->removeElement($detail)) {
+            // set the owning side to null (unless already changed)
+            if ($detail->getCommand() === $this) {
+                $detail->setCommand(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addDetails(Detail $detailItem, CommandFactory $commandFactory): self
+    {
+        foreach ($this->getItems() as $existingItem) {
+
+            // The item already exists, update the quantity
+            if ($existingItem->equals($detailItem)) {
+                $existingItem->setQuantity(
+                    $existingItem->getQuantity() + $detailItem->getQuantity()
+                );
+                return $this;
+            }
+        }
+
+        $this->details[] = $detailItem;
+        $detailItem->setCommand($this);
+
+        return $this;
+    }
+
+    /**
+     * Removes all items from the order.
+     *
+     * @return $this
+     */
+    public function removeDetails(): self
+    {
+        foreach ($this->getItems() as $details) {
+            $this->removeDetail($details);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Calculates the order total.
+     *
+     * @return float
+     */
+    public function getTotal(): float
+    {
+        $total = 0;
+
+        foreach ($this->getItems() as $detail) {
+            $total += $detail->getTotal();
+        }
+
+        return $total;
     }
 }
