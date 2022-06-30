@@ -1,0 +1,55 @@
+1/ Description 
+
+Ce cas d'utilisation permet de saisir les informations concernant l'emprunt de documents à la bibliothéque. 
+
+2/ Flux d'évènements (Workflow):
+	a) Conditions
+
+- Seul un membre du personnel de la bibliothéque ou le bibliothécaire peut opérer cette saisie.
+- L'usager de la bibliothéque doit déjà avoir été enregistré et avoir un carte de bibliothéque.
+- L'emprunt ne peut être possible que sur les livres (sauf spéciaux) et cd-rom sous conditions.
+
+	b) Résultats
+
+- Un livre ou un CD-ROM est enregistrer dans la liste d'emprunt de l'usager.
+- Le compteur d'emprunt de l'usager de la bibliothéque est incrémenter.
+
+3/ Flot Nominal
+
+
+-> Le membre du personnel recherche l'usager dans le systéme gràce à la carte de bibliothéque fournit par l'usager.
+<- Le systéme renvoie les informations relatives à l'usager de la bibliothéque.
+-> Le membre du personnel rentre les informations du support à emprunter dans le systéme.
+<- Le systéme renvoie si l'usager est en capacité d'emprunter (Nombre d'emprunt, caution, disponibilité de visionneuse de microfilm, cotisation en cours).
+-> Le membre du personnel enregistre l'emprunt (si l'usager est en capacité d'emprunter le dit-document) gràce a la côte du document et le numéro de lecteur de l'usager
+<- Le systéme inscrit la date d'emprunt et initialise le compteur de 4 semaine.
+
+4/ Flot alternatif
+
+	a) L'usager ne posséde pas de carte de lecteur
+
+-> Le membre du personnel suspend sa saisie et enregistre le nouvel usager.
+<- Le systéme enregistre le nouvel usager.
+
+	b) L'usager a plus de 5 emprunts
+
+<- Le systéme renvoie une erreur au mempbre du personnel.	
+-> Le membre du personnel prévient l'usager qu'il n'est pas en capacité d'emprunter.
+
+	c) L'usager n'a pas payer sa caution
+
+<- Le systéme renvoie une erreur au mempbre du personnel.	
+-> Le membre du personnel prévient l'usager qu'il n'est pas en capacité d'emprunter et lui demande de déposer une caution.
+
+	d) Aucune visionneuse disponible pour consulter un microfilm
+
+<- Le systéme renvoie une erreur au mempbre du personnel.	
+-> Le membre du personnel prévient l'usager qu'il n'est pas en capacité de consulter le microfilm.
+
+	e) L'usager souhaite mettre à jour ces données personnelles
+	
+-> Le membre du personnel enregistre les nouvelles données dans le systéme.
+
+	f) Le membre du personnel souhaitent abandonner le processus
+	
+<- Le systéme met fin au cas d'utilisation.
