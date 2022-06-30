@@ -7,7 +7,24 @@
                     <i class="bi-cart-fill me-1"></i>Panier
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </a>
+                {# if user is connected #}
+                {% if app.user %}
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('/img/icon/account-box-fill.svg') }}" alt="img-cart" width="20"> test@test.test
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><a class="dropdown-item" href="#">Historique des commandes</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                        </ul>
+                    </div>
+                {# if user is not connected #}
+                {% elseif not app.user %}
+                    <a href="{{  path('app_login') }}" class="btn btn-dark">
+                        Se connecter
+                    </a>
+                {% endif %}
             </form>
-        </div>
     </div>
 </nav>
