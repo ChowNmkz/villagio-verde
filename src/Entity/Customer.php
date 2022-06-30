@@ -59,6 +59,9 @@ class Customer
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $updatedAt;
 
+    #[ORM\ManyToOne(targetEntity: Employee::class, inversedBy: 'customer')]
+    private $employee;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -243,6 +246,18 @@ class Customer
     {
         $this->updatedAt = new \DateTimeImmutable();
 
+
+        return $this;
+    }
+
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?Employee $employee): self
+    {
+        $this->employee = $employee;
 
         return $this;
     }

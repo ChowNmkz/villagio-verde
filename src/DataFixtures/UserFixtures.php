@@ -32,6 +32,9 @@ class UserFixtures extends Fixture
                         );
                     $user->setPassword($hashedPassword);
                     $user->setRoles([$data[3]]);
+                    $user->setIsVerified(true);
+                    $user->setEmployee(null);
+                    $user->setCustomer(null);
                     $manager->persist($user);
                 }
                 $manager->flush();
