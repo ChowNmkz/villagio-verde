@@ -43,7 +43,7 @@ class CustomerFactory
      *
      * @return Customer
      */
-    public function createProfessionalCustomer(string $phone, string $firstName, string $lastName, string $proBrand, string $proContact, string $proSiren):Customer
+    public function createProfessionalCustomer(string $phone, string $proBrand, string $proContact, string $proSiren):Customer
     {
         $customer = new customer();
 

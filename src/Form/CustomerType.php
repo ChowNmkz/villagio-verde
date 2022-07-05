@@ -5,6 +5,7 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -20,15 +21,15 @@ class CustomerType extends AbstractType
             ->add('deliveryAddress')
             ->add('deliveryZipcode')
             ->add('deliveryCity')
-            ->add('billAddress')
-            ->add('billZipcode')
-            ->add('billCity')
-            ->add('individualLastname')
-            ->add('individualFirstname')
-            ->add('professionnalContact')
-            ->add('professionnalBrand')
-            ->add('professionnalSiren')
-            ->add('sameAdress', CheckboxType::class, [
+            ->add('billAddress', TextType::class, [ 'required' => false ])
+            ->add('billZipcode', TextType::class, [ 'required' => false ])
+            ->add('billCity', TextType::class, [ 'required' => false ])
+            ->add('individualLastname', TextType::class, [ 'required' => false ])
+            ->add('individualFirstname', TextType::class, [ 'required' => false ])
+            ->add('professionnalContact', TextType::class, [ 'required' => false ])
+            ->add('professionnalBrand', TextType::class, [ 'required' => false ])
+            ->add('professionnalSiren', TextType::class, [ 'required' => false ])
+            ->add('sameAddress', CheckboxType::class, [
                 'label'    => 'L\'adresse de facturation est la même que l\'adresse de livraison ?',
                 'required' => false,
                 "mapped" => false
@@ -41,10 +42,11 @@ class CustomerType extends AbstractType
             ->add('email')
             ->add('username')
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'Vous acceptez les régles d\'utilisation',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'Vous acceptez les régles d\'utilisation',
+                        'message' => 'Acceptez les termes',
                     ]),
                 ],
             ])
@@ -52,6 +54,7 @@ class CustomerType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+                'label' => 'Mot de passe',
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
