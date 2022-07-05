@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Customer;
 use App\Entity\User;
+use App\Factory\CustomerFactory;
+use App\Form\CustomerType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
@@ -27,10 +30,10 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, CustomerFactory $customerFactory): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(CustomerType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -44,7 +47,53 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $user
+                ->setEmail($form->get("email")->getData())
+                ->setUsername($form->get("username")->getData());
+
+
+            if ($form->get("custType")->getData() === false ){
+
+                // use a customer factory for generate a new customer entity
+                $phone = $form->get("phone")->getData();
+                $firstName = $form->get("individualFirstname")->getData();
+                $lastName = $form->get("individualLastname")->getData();
+                $customer = $customerFactory->createIndividualCustomer($phone, $firstName, $lastName);
+
+
+            } else {
+                // use a professional customer factory for generate a new customer entity
+                $phone = $form->get("phone")->getData();
+                $proBrand = $form->get("professionnalBrand")->getData();
+                $proContact = $form->get("professionnalContact")->getData();
+                $proSiren = $form->get("professionnalSiren")->getData();
+                $customer = $customerFactory->createProfessionalCustomer($phone, $proBrand, $proContact, $proSiren);
+            }
+
+            if ($form->get("sameAddress")->getData() === false ){
+                $customer
+                    ->setDeliveryAddress($form->get("deliveryAddress")->getData())
+                    ->setDeliveryZipcode($form->get("deliveryZipcode")->getData())
+                    ->setDeliveryCity($form->get("deliveryCity")->getData())
+                    ->setBillAddress($form->get("deliveryAddress")->getData())
+                    ->setBillZipcode($form->get("deliveryZipcode")->getData())
+                    ->setBillCity($form->get("deliveryCity")->getData());
+            } else {
+                //
+            $customer
+                ->setDeliveryAddress($form->get("deliveryAddress")->getData())
+                ->setDeliveryZipcode($form->get("deliveryZipcode")->getData())
+                ->setDeliveryCity($form->get("deliveryCity")->getData())
+                ->setBillAddress($form->get("billAddress")->getData())
+                ->setBillZipcode($form->get("billZipcode")->getData())
+                ->setBillCity($form->get("billCity")->getData());
+            }
+
+            // associate the new customer entity with the user account
+            $user->setCustomer($customer);
+
             $entityManager->persist($user);
+            $entityManager->persist($customer);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
@@ -52,16 +101,17 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('no_reply@villagioverde.com', 'Villagio Verde'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Confirmer votre E-Mail, s\'il-vous-plaît')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
 
+            // do anything else you need here, like send an email
             return $this->redirectToRoute('app_home');
         }
 
+
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -90,7 +140,7 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Ton eMail a bien été verifier.');
+        $this->addFlash('success', 'Ton E-Mail a bien été verifié.');
 
         return $this->redirectToRoute('app_home');
     }
