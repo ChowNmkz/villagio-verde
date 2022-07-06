@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ app.user.userIdentifier }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Profil de {{ user.userIdentifier }}</h1>
+    {{ form_start(form) }}
+        <div class="row">
+            <span class="col-6">
+                {{ form_row(form.individualFirstname,
+                    { label: 'Prénom'}) }}
+            </span>
+            <span class="col-6">
+                {{ form_row(form.individualLastname,
+                    { label: 'Nom' }) }}
+            </span>
+        </div>
+
+        {{ form_row(form.phone,
+            { label: 'Numéro de téléphone' }) }}
+
+        <div class="row">
+            <span class="col-6">
+                {{ form_row(form.deliveryAddress,
+                    { label: 'Adresse de livraison'}) }}
+
+                {{ form_row(form.deliveryZipcode,
+                    { label: 'Code postal de livraison'}) }}
+
+                {{ form_row(form.deliveryCity,
+                    { label: 'Ville de livraison'}) }}
+            </span>
+            <span class="col-6">
+                {{ form_row(form.billAddress,
+                    { label: 'Adresse de facturation'}) }}
+
+                {{ form_row(form.billZipcode,
+                    { label: 'Code postal de facturation'}) }}
+
+                {{ form_row(form.billCity,
+                    { label: 'Ville de facturation'}) }}
+            </span>
+
+        </div>
+        {{ form_row(form.professionnalBrand,
+            { label: 'Nom de l\'entreprise'}) }}
+        {{ form_row(form.professionnalContact,
+            { label: 'Contact dans l\'entreprise'}) }}
+        {{ form_row(form.professionnalSiren,
+            { label: 'Numéro SIREN de l\'entreprise'}) }}
+        <div class="d-grid mt-4 mb-5">
+            <button type="submit" class="btn btn-block btn-dark btn-sm">Sauvegarder les changements</button>
+        </div>
+    {{ form_end(form)}}
+    </div>
+{% endblock %}

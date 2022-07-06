@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Customer;
 use App\Entity\User;
 use App\Factory\CustomerFactory;
-use App\Form\CustomerType;
-use App\Form\RegistrationFormType;
+use App\Form\RegisterType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,7 +31,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, CustomerFactory $customerFactory): Response
     {
         $user = new User();
-        $form = $this->createForm(CustomerType::class);
+        $form = $this->createForm(RegisterType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
