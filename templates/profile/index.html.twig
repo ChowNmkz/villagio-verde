@@ -1,26 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Profil de {{ app.user.userIdentifier }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container">
+        <div>
+            <h1>Profil de {{ user.userIdentifier }}</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            {# display email #}
+
+                <label for="emailAddress">Votre adresse E-Mail</label>
+                <input class="form-control form-control-sm" type="email" value="{{ user.userIdentifier }}" id="emailAddress" readonly="readonly">
+
+            {# display phone number #}
+
+                <label for="phoneNumber">Votre numéro de téléphone</label>
+                <input class="form-control form-control-sm" type="text" value="{{ customer.phone }}" id="phoneNumber" readonly="readonly">
+
+            {# display name #}
+
+            <div class="row">
+                <label for="firstLastName">Nom & Prénom</label>
+                <div class="col-6">
+                    <input class="form-control form-control-sm" type="text" value="{{ customer.individualLastname }}" id="firstLastName" readonly="readonly">
+                </div>
+                <div class="col-6">
+                    <input class="form-control form-control-sm" type="text" value="{{ customer.individualFirstname }}" id="firstLastName" readonly="readonly">
+                </div>
+            </div>
+
+            {# display bill & delivery address #}
+            <div class="row">
+                <div class="col-6">
+                    <label for="deliveryAddress">Adresse de livraison</label>
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ customer.deliveryAddress }}" id="deliveryAddress" readonly="readonly">
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ customer.deliveryZipcode }}" id="deliveryAddress" readonly="readonly">
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ customer.deliveryCity }}" id="deliveryAddress" readonly="readonly">
+                </div>
+                <div class="col-6">
+                    <label for="billAddress">Adresse de facturation</label>
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ customer.billAddress }}" id="billAddress" readonly="readonly">
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ customer.billZipcode }}" id="billAddress" readonly="readonly">
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ customer.billCity }}" id="billAddress" readonly="readonly">
+                </div>
+            </div>
 
 
+            <label for="proContactName">Nom et prénom du contact dans l'entreprise</label>
+            <input class="form-control form-control-sm" type="text" value="{{ customer.professionnalContact }}" id="proContactName" readonly="readonly">
 
-    Utilisateur : {{ app.user.userIdentifier }}
+            <div class="row">
+                <label for="proNameSiren">Nom & numéro SIREN de l'entreprise</label>
+                <div class="col-6">
+                    <input class="form-control form-control-sm" type="text" value="{{ customer.professionnalBrand }}" id="proNameSiren" readonly="readonly">
+                </div>
+                <div class="col-6">
+                    <input class="form-control form-control-sm" type="text" value="{{ customer.professionnalSiren }}" id="proNameSiren" readonly="readonly">
+                </div>
+            </div>
 
 
+        </div>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/keving/formation/villagio-verde/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/keving/formation/villagio-verde/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}

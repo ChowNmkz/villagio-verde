@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,10 +13,21 @@ class ProfileController extends AbstractController
     #[Route('/profile', name: 'app_profile')]
     public function index(CustomerRepository $customerRepository): Response
     {
-        //$customerRepository->findOneBy();
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+        $idCustomer = $user->getCustomer();
 
+        $customer = $customerRepository->findOneBy(['id' => $idCustomer]);
+        
         return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
+            'customer' => $customer,
+            'user' => $user,
         ]);
+    }
+    
+    #[route('/profile/edit' , name: 'app_profile_edit')]
+    public function editCustomer(): Response
+    {
+        
     }
 }
