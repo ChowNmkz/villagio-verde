@@ -62,6 +62,22 @@ class ImageRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @param $product
+     * @param ProductRepository $productRepository
+     * @return Image|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneImageByRef($product, ProductRepository $productRepository): ?Image
+    {
+        $idProduct = $product->getId();
+
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.product = :val')
+            ->setParameter('val', $idProduct)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 //    public function findOneBySomeField($value): ?Image
 //    {
 //        return $this->createQueryBuilder('i')

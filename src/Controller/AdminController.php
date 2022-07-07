@@ -17,9 +17,10 @@ class AdminController extends AbstractController
     #[Route('/admin', name: 'app_admin')]
     public function index(Request $request): Response
     {
-
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
+            'headerTitle' => 'Page d\'administration',
+            'headerDesc' => '',
         ]);
     }
 
@@ -31,6 +32,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(EmployeeAccountType::class);
         $form->handleRequest($request);
 
+        // if the admin submit the form then the entity user and employee is creating and associate in the same time
         if ($form->isSubmitted() && $form->isValid()) {
             $user
                 ->setEmail($form->get("email")->getData())
@@ -44,6 +46,7 @@ class AdminController extends AbstractController
                 )
             );
 
+            //set employee attributes from the form
             $employee
                 ->setFirstname($form->get("firstname")->getData())
                 ->setLastname($form->get("lastname")->getData())
@@ -63,8 +66,10 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('app_admin');
         }
 
-        return $this->render('admin/employeeregister.html.twig', [
+        return $this->render('admin/employee_register.html.twig', [
             'form' => $form->createView(),
+            'headerTitle' => 'Création des employés ',
+            'headerDesc' => 'C\'est ici que les comptes des employés sont générés',
         ]);
     }
 }

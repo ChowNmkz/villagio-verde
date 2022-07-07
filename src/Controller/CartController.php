@@ -32,7 +32,10 @@ class CartController extends AbstractController
 
         return $this->render('cart/index.html.twig', [
             'cart' => $cart,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'headerTitle' => 'Votre panier',
+            'headerDesc' => '',
+
         ]);
     }
 }

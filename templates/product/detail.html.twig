@@ -6,17 +6,40 @@
     <div class="container">
         <div class="row mt-3 mb-4">
             <div class="col-md-4">
-                <img src="https://via.placeholder.com/600x400" alt="{{ product.name }}" class="img-fluid">
+
+                {#<img src="https://via.placeholder.com/600x400" alt="{{ product.name }}" class="img-fluid">#}
+                <div id="carouselImagesIndicator" class="carousel carousel-dark slide" data-bs-ride="true">
+{#                    <div class="carousel-indicators">
+                        {% for image in images %}
+                            <button type="button" data-bs-target="#carouselImagesIndicator" data-bs-slide-to="{{ loop.index0 }}" {% if loop.index0 == 0 %} class="item active" {% else %} class="active" {% endif %} aria-current="true" aria-label="Slide 1"></button>
+                        {% endfor %}
+                    </div>#}
+                    <div class="carousel-inner">
+                        {% for image in images %}
+                                <div {% if loop.index0 == 0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
+                                    <img src="/uploads/photos/{{ image.source }}" class="d-block w-100 image-resize" alt="..." >
+                                </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselImagesIndicator" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselImagesIndicator" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
             <div class="col-md-8">
-                <h1 class="mt-4 mt-md-0">{{ product.name }}</h1>
+                {#<h1 class="mt-4 mt-md-0">{{ product.name }}</h1>#}
                 <h2>{{ product.sellPrice }} €</h2>
                 <hr>
-                <b>Description: </b>
-                <p>{{ product.description }}</p>
-                {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light'}}) }}
+{#                <b>Description: </b>
+                <p>{{ product.description }}</p>#}
+                {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light rounded'}}) }}
                 <div class="form-group">
-                    {{ form_label(form.quantity) }}
+                    {{ form_label(form.quantity, 'Quantité')}}
                     {{ form_widget(form.quantity, {
                         'attr': {
                             'class': 'form-control ' ~ (form.quantity.vars.valid ? '' : 'is-invalid')
@@ -26,7 +49,7 @@
                         {{ form_errors(form.quantity) }}
                     </div>
                 </div>
-                {{ form_widget(form.add, {'attr': {'class': 'btn btn-warning w-25'}}) }}
+                {{ form_widget(form.add, {'attr': {'class': 'btn btn-dark w-25 mt-2'}}) }}
                 {{ form_end(form) }}
             </div>
         </div>

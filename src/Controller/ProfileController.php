@@ -26,6 +26,8 @@ class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
             'customer' => $customer,
             'user' => $user,
+            'headerTitle' => 'Ravi de vous revoir',
+            'headerDesc' => $customer->getIndividualFirstname() . ' ' . $customer->getIndividualLastname(),
         ]);
     }
     
@@ -51,10 +53,12 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('profile/editProfile.html.twig', [
+        return $this->render('profile/edit_profile.html.twig', [
             'form' => $form->createView(),
             'user' => $user,
             'customer' => $customer,
+            'headerTitle' => 'Modification du profil',
+            'headerDesc' => $customer->getIndividualFirstname() . ' ' .  $customer->getIndividualLastname() ,
         ]);
     }
 }

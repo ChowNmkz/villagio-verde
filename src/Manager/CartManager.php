@@ -29,14 +29,10 @@ class CartManager
      * @param CartSessionStorage $cartStorage
      * @param CommandFactory $commandFactory
      */
-    public function __construct(
-        CartSessionStorage $cartStorage,
-        CommandFactory $commandFactory,
-        EntityManagerInterface $entityManager
-    )
+    public function __construct(CartSessionStorage $cartStorage, CommandFactory $commandFactory, EntityManagerInterface $entityManager)
     {
         $this->cartSessionStorage = $cartStorage;
-        $this->cartFactory = $commandFactory;
+        $this->commandFactory = $commandFactory;
         $this->entityManager = $entityManager;
     }
 
@@ -50,7 +46,7 @@ class CartManager
         $cart = $this->cartSessionStorage->getCart();
 
         if (!$cart) {
-            $cart = $this->cartFactory->create();
+            $cart = $this->commandFactory->create();
         }
 
         return $cart;

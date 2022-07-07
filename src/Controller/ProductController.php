@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Form\AddToCartType;
 use App\Manager\CartManager;
 use App\Factory\CommandFactory;
+use App\Repository\ImageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,8 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     #[Route('/product/{id}', name: 'app_product_detail')]
-    public function detail(Product $product, Request $request, CartManager $cartManager, CommandFactory $cartFactory): Response
+    public function detail(Product $product, Request $request, CartManager $cartManager, CommandFactory $cartFactory, ImageRepository $imageRepository): Response
     {
+        $images = $imageRepository->findBy(['product' => $product->getId()] );
+
         $form = $this->createForm(AddToCartType::class);
 
         $form->handleRequest($request);
@@ -39,7 +42,10 @@ class ProductController extends AbstractController
 
         return $this->render('product/detail.html.twig', [
             'product' => $product,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'headerTitle' => $product->getName(),
+            'headerDesc' => $product->getDescription(),
+            'images' => $images,
         ]);
     }
 }

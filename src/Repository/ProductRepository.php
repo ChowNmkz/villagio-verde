@@ -47,6 +47,19 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Find 12 last entry in the product repo
+     *
+     * @return array
+     */
+    public function findLastProducts(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.createdAt', 'ASC')
+            ->setMaxResults(12)
+            ->getQuery()
+            ->getArrayResult();
+    }
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

@@ -62,6 +62,11 @@ $quattro: #EEEEEE;
   padding-right: unset;
 }
 
+.image-resize{
+  width: auto !important;
+  max-height: 400px !important;
+  object-fit: contain !important;
+}
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
