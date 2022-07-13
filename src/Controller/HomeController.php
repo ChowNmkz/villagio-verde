@@ -15,9 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(ProductRepository $productRepository, ImageRepository $imageRepository): Response
+    public function index(ProductRepository $productRepository, ImageRepository $imageRepository, CategoryRepository $categoryRepository): Response
     {
         $products = $productRepository->findLastProducts();
+        $category = $categoryRepository->findBy(['catParent' => null ] );
 
         return $this->render('home/index.html.twig', [
             'headerTitle' => 'Bienvenue !',
@@ -27,7 +28,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/category', name: 'app_category')]
-    public function category(CategoryRepository $categoryRepository, SessionInterface $session , CartSessionStorage $cartSessionStorage): Response
+    public function category(CategoryRepository $categoryRepository): Response
     {
         $category = $categoryRepository->findBy(['catParent' => null ] );
 

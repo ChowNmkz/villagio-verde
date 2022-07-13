@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ app.user.userIdentifier }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div>
+            <h1>Profil de {{ app.user.userIdentifier }}</h1>
+
+            {# display email #}
+
+            <label for="emailAddress" class="mt-3">Votre adresse E-Mail</label>
+            <input class="form-control form-control-sm" type="email" value="{{ app.user.userIdentifier }}" id="emailAddress" readonly="readonly">
+
+            {# display phone number #}
+
+            <label for="phoneNumber" class="mt-3">Votre numéro de téléphone</label>
+            <input class="form-control form-control-sm" type="text" value="{{ app.user.customer.phone }}" id="phoneNumber" readonly="readonly">
+
+            {# display name #}
+
+            <div class="row">
+                <label for="firstLastName" class="mt-3">Nom & Prénom</label>
+                <div class="col-6">
+                    <input class="form-control form-control-sm" type="text" value="{{ app.user.customer.individualLastname }}" id="firstLastName" readonly="readonly">
+                </div>
+                <div class="col-6">
+                    <input class="form-control form-control-sm" type="text" value="{{ app.user.customer.individualFirstname }}" id="firstLastName" readonly="readonly">
+                </div>
+            </div>
+
+            {# display bill & delivery address #}
+            <div class="row">
+                <div class="col-6">
+                    <label for="deliveryAddress" class="mt-3">Adresse de livraison</label>
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ app.user.customer.deliveryAddress }}" id="deliveryAddress" readonly="readonly">
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ app.user.customer.deliveryZipcode }}" id="deliveryAddress" readonly="readonly">
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ app.user.customer.deliveryCity }}" id="deliveryAddress" readonly="readonly">
+                </div>
+                <div class="col-6">
+                    <label for="billAddress" class="mt-3">Adresse de facturation</label>
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ app.user.customer.billAddress }}" id="billAddress" readonly="readonly">
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ app.user.customer.billZipcode }}" id="billAddress" readonly="readonly">
+                    <input class="form-control form-control-sm mb-1" type="text" value="{{ app.user.customer.billCity }}" id="billAddress" readonly="readonly">
+                </div>
+            </div>
+
+
+            <label for="proContactName" class="mt-3">Nom et prénom du contact dans l'entreprise</label>
+            <input class="form-control form-control-sm" type="text" value="{{ app.user.customer.professionnalContact }}" id="proContactName" readonly="readonly">
+
+            <div class="row">
+                <label for="proNameSiren" class="mt-3">Nom & numéro SIREN de l'entreprise</label>
+                <div class="col-6">
+                    <input class="form-control form-control-sm" type="text" value="{{ app.user.customer.professionnalBrand }}" id="proNameSiren" readonly="readonly">
+                </div>
+                <div class="col-6">
+                    <input class="form-control form-control-sm" type="text" value="{{ app.user.customer.professionnalSiren }}" id="proNameSiren" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="d-grid mt-4 mb-5">
+                <a href="{{ path('app_profile_edit') }}" class="btn btn-block btn-dark btn-sm">Editer mon profil</a>
+            </div>
+
+
+
+        </div>
+    </div>
+
+{% endblock %}
