@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CustomerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
@@ -61,6 +63,14 @@ class Customer
 
     #[ORM\ManyToOne(targetEntity: Employee::class, inversedBy: 'customer')]
     private $employee;
+
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Command::class)]
+    private $Command;
+
+    public function __construct()
+    {
+        $this->Command = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -258,6 +268,36 @@ class Customer
     public function setEmployee(?Employee $employee): self
     {
         $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Command>
+     */
+    public function getCommand(): Collection
+    {
+        return $this->Command;
+    }
+
+    public function addCommand(Command $command): self
+    {
+        if (!$this->Command->contains($command)) {
+            $this->Command[] = $command;
+            $command->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommand(Command $command): self
+    {
+        if ($this->Command->removeElement($command)) {
+            // set the owning side to null (unless already changed)
+            if ($command->getCustomer() === $this) {
+                $command->setCustomer(null);
+            }
+        }
 
         return $this;
     }

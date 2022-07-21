@@ -51,7 +51,6 @@ class RegistrationController extends AbstractController
 
 
             if ($form->get("custType")->getData() === false ){
-
                 // use a customer factory for generate a new customer entity
                 $phone = $form->get("phone")->getData();
                 $firstName = $form->get("individualFirstname")->getData();
@@ -77,7 +76,7 @@ class RegistrationController extends AbstractController
                     ->setBillZipcode($form->get("deliveryZipcode")->getData())
                     ->setBillCity($form->get("deliveryCity")->getData());
             } else {
-                //
+                // if the bill adress is different to the delivery address
             $customer
                 ->setDeliveryAddress($form->get("deliveryAddress")->getData())
                 ->setDeliveryZipcode($form->get("deliveryZipcode")->getData())

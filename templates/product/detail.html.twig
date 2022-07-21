@@ -6,14 +6,7 @@
     <div class="container">
         <div class="row mt-3 mb-4">
             <div class="col-md-4">
-
-                {#<img src="https://via.placeholder.com/600x400" alt="{{ product.name }}" class="img-fluid">#}
                 <div id="carouselImagesIndicator" class="carousel carousel-dark slide" data-bs-ride="true">
-{#                    <div class="carousel-indicators">
-                        {% for image in images %}
-                            <button type="button" data-bs-target="#carouselImagesIndicator" data-bs-slide-to="{{ loop.index0 }}" {% if loop.index0 == 0 %} class="item active" {% else %} class="active" {% endif %} aria-current="true" aria-label="Slide 1"></button>
-                        {% endfor %}
-                    </div>#}
                     <div class="carousel-inner">
                         {% for image in images %}
                                 <div {% if loop.index0 == 0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
@@ -32,11 +25,11 @@
                 </div>
             </div>
             <div class="col-md-8">
-                {#<h1 class="mt-4 mt-md-0">{{ product.name }}</h1>#}
+                <h1 class="mt-4 mt-md-0">{{ product.name }}
                 <h2>{{ product.sellPrice }} €</h2>
                 <hr>
-{#                <b>Description: </b>
-                <p>{{ product.description }}</p>#}
+                <b>Description: </b>
+                <p>{{ product.description }}</p>
                 {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light rounded'}}) }}
                 <div class="form-group">
                     {{ form_label(form.quantity, 'Quantité')}}

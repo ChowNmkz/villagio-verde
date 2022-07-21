@@ -44,7 +44,7 @@ class ProductController extends AbstractController
             'product' => $product,
             'form' => $form->createView(),
             'headerTitle' => $product->getName(),
-            'headerDesc' => $product->getDescription(),
+            'headerDesc' => "",
             'images' => $images,
         ]);
     }
