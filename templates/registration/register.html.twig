@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                {% endfor %}
+
+                <h1>Inscription</h1>
+                {{ form_start(form) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.username,
+                        { label: 'Nom d\'utilisateur'
+                        }) }}
+                    {{ form_row(form.plainPassword, {
+                        label: 'Mot de passe'
+                    }) }}
+            </div>
+
+            <div class="col-6">
+                <h1>Informations complémentaires</h1>
+                {{ form_row(form.individualFirstname,
+                    { label: 'Prénom'}) }}
+                {{ form_row(form.individualLastname,
+                    { label: 'Nom' }) }}
+                {{ form_row(form.phone,
+                    { label: 'Numéro de téléphone' }) }}
+                <hr>
+                {{ form_row(form.deliveryAddress,
+                    { label: 'Adresse de livraison'}) }}
+                {{ form_row(form.deliveryZipcode,
+                    { label: 'Code postal de livraison'}) }}
+                {{ form_row(form.deliveryCity,
+                    { label: 'Ville de livraison'}) }}
+                {{ form_row(form.sameAddress) }}
+                {{ form_row(form.billAddress,
+                    { label: 'Adresse de facturation'}) }}
+                {{ form_row(form.billZipcode,
+                    { label: 'Code postal de facturation'}) }}
+                {{ form_row(form.billCity,
+                    { label: 'Ville de facturation'}) }}
+                {{ form_row(form.custType) }}
+                {{ form_row(form.professionnalBrand,
+                    { label: 'Nom de l\'entreprise'}) }}
+                {{ form_row(form.professionnalContact,
+                    { label: 'Contact dans l\'entreprise'}) }}
+                {{ form_row(form.professionnalSiren,
+                    { label: 'Numéro SIREN de l\'entreprise'}) }}
+            </div>
+
+            {{ form_row(form.agreeTerms) }}
+            <button type="submit" class="btn btn-dark">S'inscrire</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    {% endblock %}

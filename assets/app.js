@@ -10,3 +10,4 @@ import './styles/global.scss';
 
 // start the Stimulus application
 import './bootstrap';
+import { Dropdown, Toast, Popover } from "bootstrap";

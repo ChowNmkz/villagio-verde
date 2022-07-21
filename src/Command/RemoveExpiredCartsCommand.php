@@ -1,5 +1,5 @@
 <?php
-
+// NEED CRON : https://symfony.com/doc/5.4/the-fast-track/fr/24-cron.html
 namespace App\Command;
 
 use App\Repository\CommandRepository;

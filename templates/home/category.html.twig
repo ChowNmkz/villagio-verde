@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row row-category">
+            {% if app.request.get('_route') == 'app_category' %}
+                {% for cat in category %}
+                    <a class="col-category" href="{{ path('app_home_categoryByCategory', {id: cat.id}) }}">
+                        <div class="carte" id={{ cat.id }}>
+                            <img class="carte-image" src="/img/category/{{ cat.image }}" alt="Carte de {{ cat.name }}"/>
+                            <div class="carte-opacite"></div>
+                            <span class="carte-titre">{{ cat.name }}</span>
+                        </div>
+                    </a>
+
+                {% endfor %}
+            {% elseif app.request.get('_route') == 'app_home_categoryByCategory' %}
+                {% for catparent in category.categories %}
+                    <a class="col-category" href="{{ path('app_home_productByCategory', {id: catparent.id}) }}">
+                        <div class="carte" id={{ catparent.id }}>
+                            <img class="carte-image" src="/img/category/{{catparent.image}}" alt="Carte de {{ catparent.name }}"/>
+                            <div class="carte-opacite"></div>
+                            <span class="carte-titre">{{ catparent.name }}</span>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

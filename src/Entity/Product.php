@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -14,23 +15,29 @@ class Product
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->shippingItems = new ArrayCollection();
     }
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("read:product")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("read:product")]
     private $name; 
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[Groups("read:product")]
     private $buyPrice;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups("read:product")]
     private $stock;
 
     #[ORM\Column(type: 'text')]
+    #[Groups("read:product")]
     private $description;
 
     #[ORM\Column(type: 'boolean')]
@@ -43,18 +50,25 @@ class Product
     private $updatedAt;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[Groups("read:product")]
     private $sellPrice;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class)]
+    #[Groups("read:product")]
     private $images;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("read:product")]
     private $category;
 
     #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("read:product")]
     private $supplier;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ShippingItem::class)]
+    private $shippingItems;
 
     public function getId(): ?int
     {
@@ -206,6 +220,36 @@ class Product
     public function setSupplier(?Supplier $supplier): self
     {
         $this->supplier = $supplier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ShippingItem>
+     */
+    public function getShippingItems(): Collection
+    {
+        return $this->shippingItems;
+    }
+
+    public function addShippingItem(ShippingItem $shippingItem): self
+    {
+        if (!$this->shippingItems->contains($shippingItem)) {
+            $this->shippingItems[] = $shippingItem;
+            $shippingItem->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShippingItem(ShippingItem $shippingItem): self
+    {
+        if ($this->shippingItems->removeElement($shippingItem)) {
+            // set the owning side to null (unless already changed)
+            if ($shippingItem->getProduct() === $this) {
+                $shippingItem->setProduct(null);
+            }
+        }
 
         return $this;
     }

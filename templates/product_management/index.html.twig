@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des produits{% endblock %}
+
+{% block body %}
+<div class="container">
+    <a href="{{ path('app_product_management_new') }}" class="btn btn-dark m-3">Ajouter un nouveau produit</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix d'achat</th>
+                <th>Prix de vente</th>
+                <th>Stock</th>
+                <th>Publié</th>
+                <th>Créé le :</th>
+                <th>Mis à jour le :</th>
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.buyPrice }}</td>
+                <td>{{ product.sellPrice }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{{ product.publish ? 'Oui' : 'Non' }}</td>
+                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+
+                <td>
+                    <span class="row">
+                        <a href="{{ path('app_product_management_show', {'id': product.id}) }}" class="btn btn-dark mb-1">Détail</a>
+                        <a href="{{ path('app_product_management_edit', {'id': product.id}) }}" class="btn btn-dark mb-1">Editer</a>
+                    </span>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">Pas de produits trouvés</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+{% endblock %}

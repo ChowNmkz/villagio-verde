@@ -42,6 +42,8 @@
         "symfony/web-link": "5.4.*",
         "symfony/webpack-encore-bundle": "^1.14",
         "symfony/yaml": "*",
+        "symfonycasts/reset-password-bundle": "^1.13",
+        "symfonycasts/verify-email-bundle": "^1.10",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
@@ -82,6 +84,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "fixtures": [
+            "php bin/console d:d:d --force",
+            "php bin/console d:d:c ",
+            "php bin/console d:s:u --force",
+            "php bin/console d:f:l "
         ]
     },
     "conflict": {

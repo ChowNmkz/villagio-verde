@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
@@ -33,6 +35,14 @@ class Employee
 
     #[ORM\Column(type: 'string', length: 50)]
     private $post;
+
+    #[ORM\OneToMany(mappedBy: 'employee', targetEntity: customer::class)]
+    private $customer;
+
+    public function __construct()
+    {
+        $this->customer = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +129,36 @@ class Employee
     public function setPost(string $post): self
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, customer>
+     */
+    public function getCustomer(): Collection
+    {
+        return $this->customer;
+    }
+
+    public function addCustomer(customer $customer): self
+    {
+        if (!$this->customer->contains($customer)) {
+            $this->customer[] = $customer;
+            $customer->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomer(customer $customer): self
+    {
+        if ($this->customer->removeElement($customer)) {
+            // set the owning side to null (unless already changed)
+            if ($customer->getEmployee() === $this) {
+                $customer->setEmployee(null);
+            }
+        }
 
         return $this;
     }

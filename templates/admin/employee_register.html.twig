@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création des comptes employés{% endblock %}
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.firstname,
+                    { label: 'Prénom'}) }}
+                {{ form_row(form.lastname,
+                    { label: 'Nom'}) }}
+                {{ form_row(form.gender,
+                    { label: 'Genre'}) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.address,
+                    { label: 'Adresse'}) }}
+                {{ form_row(form.zipcode,
+                    { label: 'Code postal'}) }}
+                {{ form_row(form.city,
+                    { label: 'Ville'}) }}
+            </div>
+        </div>
+        {{ form_row(form.post,
+            { label: 'Poste dans l\'entreprise'}) }}
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.email,
+                    { label: 'E-Mail du salarié'}) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.username,
+                    { label: 'Identifiant du salarié'}) }}
+            </div>
+        </div>
+        {{ form_row(form.plainPassword,
+            { label: 'Mot de passe du salarié'}) }}
+
+        <div class="d-grid mt-4 mb-5">
+            <button type="submit" class="btn btn-block btn-dark btn-sm">Créer le compte</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

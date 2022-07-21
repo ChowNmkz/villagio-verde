@@ -3,11 +3,38 @@
         <a class="navbar-brand" href="{{ path('app_home') }}">Villagio Verde</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <form class="d-flex">
-                <a href="{{ path('app_cart') }}" class="btn btn-outline-dark" type="submit">
+                <a href="{{ path('app_cart') }}" class="btn btn-outline-dark me-2" type="submit">
                     <i class="bi-cart-fill me-1"></i>Panier
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </a>
+                {# if user is connected #}
+                {% if app.user %}
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('/img/icon/account-box-fill.svg') }}" alt="img-cart" width="20"> {{ app.user.userIdentifier }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="{{ path('app_profile') }}">Profil</a></li>
+                            {% if is_granted('ROLE_CUSTOMER') %}
+                                <li><a class="dropdown-item" href="#">Historique des commandes</a></li>
+                            {% endif %}
+                            {% if is_granted('ROLE_EMPLOYEE') or is_granted('ROLE_ADMIN') %}
+                                <div class="dropdown-divider"></div>
+                                <li><a class="dropdown-item" href="{{ path('app_product_management_index') }}">Gestion des produits</a></li>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a class="dropdown-item" href="{{ path('app_admin_add_employee') }}">Ajout d'un compte employé</a></li>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                        </ul>
+                    </div>
+                {# if user is not connected #}
+                {% elseif not app.user %}
+                    <a href="{{  path('app_login') }}" class="btn btn-dark">
+                        Se connecter
+                    </a>
+                {% endif %}
             </form>
-        </div>
     </div>
 </nav>

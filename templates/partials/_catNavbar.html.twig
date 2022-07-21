@@ -1,0 +1,8 @@
+{#<div class="justify-content-center bg-secondary d-flex pt-2 pb-3"><h1>Listes des catégories</h1></div>#}
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container px-4 px-lg-5 pb-3">
+        {% for cat in category %}
+            <a href="{{ path('app_home_categoryByCategory', {id: cat.id}) }}" class="btn btn-outline-light">{{ cat.name }}</a>
+        {% endfor %}
+    </div>
+</nav>

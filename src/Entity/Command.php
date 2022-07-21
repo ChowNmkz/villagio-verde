@@ -66,6 +66,12 @@ class Command
     #[ORM\OneToMany(mappedBy: 'command', targetEntity: Detail::class, cascade: ["persist", "remove"], orphanRemoval: true)]
     private $items;
 
+    #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'Command')]
+    private $customer;
+
+    #[ORM\OneToMany(mappedBy: 'command', targetEntity: Shipping::class)]
+    private $shippings;
+
     /**
      * An order that is in progress, not placed yet.
      *
@@ -76,6 +82,7 @@ class Command
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->shippings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -340,5 +347,47 @@ class Command
         }
 
         return $total;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Shipping>
+     */
+    public function getShippings(): Collection
+    {
+        return $this->shippings;
+    }
+
+    public function addShipping(Shipping $shipping): self
+    {
+        if (!$this->shippings->contains($shipping)) {
+            $this->shippings[] = $shipping;
+            $shipping->setCommand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShipping(Shipping $shipping): self
+    {
+        if ($this->shippings->removeElement($shipping)) {
+            // set the owning side to null (unless already changed)
+            if ($shipping->getCommand() === $this) {
+                $shipping->setCommand(null);
+            }
+        }
+
+        return $this;
     }
 }

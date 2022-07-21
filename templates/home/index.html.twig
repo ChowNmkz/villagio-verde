@@ -4,29 +4,23 @@
 
 {% block body %}
     <div class="container">
-        <div class="row row-category">
-        {% if app.request.get('_route') == 'app_home' %}
-            {% for cat in category %}
-                <a class="col-category" href="{{ path('app_home_category', {id: cat.id}) }}">
-                    <div class="carte" id={{ cat.id }}>
-                        <img class="carte-image" src="/img/category/{{ cat.image }}" alt="Carte de {{ cat.name }}"/>
-                        <div class="carte-opacite"></div>
-                        <span class="carte-titre">{{ cat.name }}</span>
+        <h1 class="mt-3 mb-4">Récemment ajouté :</h1>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="https://via.placeholder.com/200x150" alt="{{ product.name }}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <div class="d-flex justify-content-between align-item-center">
+                                <a href="{{ path('app_product_detail', {id: product.id}) }}" class="btn btn-dark">Voir les détails</a>
+                                <span class="h5 mt-auto">{{ product.sellPrice }} €</span>
+                            </div>
+                        </div>
                     </div>
-                </a>
-
+                </div>
             {% endfor %}
-        {% elseif app.request.get('_route') == 'app_home_category' %}
-            {% for catparent in category.categories %}
-                <a class="col-category" href="{{ path('app_home_productByCategory', {id: catparent.id}) }}">
-                    <div class="carte" id={{ catparent.id }}>
-                        <img class="carte-image" src="/img/category/{{catparent.image}}" alt="Carte de {{ catparent.name }}"/>
-                        <div class="carte-opacite"></div>
-                        <span class="carte-titre">{{ catparent.name }}</span>
-                    </div>
-                </a>
-            {% endfor %}
-        {% endif %}
         </div>
     </div>
 {% endblock %}
