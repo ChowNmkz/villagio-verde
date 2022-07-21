@@ -27,7 +27,7 @@ class Shipping
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $details;
 
-    #[ORM\ManyToOne(targetEntity: command::class, inversedBy: 'shippings')]
+    #[ORM\ManyToOne(targetEntity: Command::class, inversedBy: 'shippings')]
     private $command;
 
     #[ORM\OneToMany(mappedBy: 'shipping', targetEntity: ShippingItem::class)]

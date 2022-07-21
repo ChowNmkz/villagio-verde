@@ -13,10 +13,10 @@ class ShippingItem
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: shipping::class, inversedBy: 'shippingItems')]
+    #[ORM\ManyToOne(targetEntity: Shipping::class, inversedBy: 'shippingItems')]
     private $shipping;
 
-    #[ORM\ManyToOne(targetEntity: product::class, inversedBy: 'shippingItems')]
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'shippingItems')]
     private $product;
 
     #[ORM\Column(type: 'integer')]
